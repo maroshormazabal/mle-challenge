@@ -6,7 +6,9 @@ from typing import Tuple, Union, List
 
 class DelayModel:
 
-    def __init__(self):
+    def __init__(
+            self
+    ):
         self._model = None # Model should be saved in this attribute.
 
     def get_period_day(date):

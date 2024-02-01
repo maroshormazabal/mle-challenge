@@ -1,181 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="0.837" timestamp="2024-01-30T15:05:30.182837" hostname="DESKTOP-H05ROVE"><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_1" time="0.005"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_1&gt;
-
-    def test_should_failed_unkown_column_1(self):
-        data = {
-            "flights": [
-                {
-                    "OPERA": "Aerolineas Argentinas",
-                    "TIPOVUELO": "N",
-                    "MES": 13
-                }
-            ]
-        }
-        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))# change this line to the model of chosing
-&gt;       response = self.client.post("/predict", json=data)
-
-tests\api\test_api.py:38: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:637: in post
-    return self.request("POST", url, data=data, json=json, **kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:473: in request
-    return super().request(
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:589: in request
-    resp = self.send(prep, **send_kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:703: in send
-    r = adapter.send(request, **kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:267: in send
-    raise exc
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:262: in send
-    with self.portal_factory() as portal:
-..\..\AppData\Local\Programs\Python\Python310\lib\contextlib.py:135: in __enter__
-    return next(self.gen)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-self = &lt;starlette.testclient.TestClient object at 0x00000158DB416E60&gt;
-
-    @contextlib.contextmanager
-    def _portal_factory(
-        self,
-    ) -&gt; typing.Generator[anyio.abc.BlockingPortal, None, None]:
-        if self.portal is not None:
-            yield self.portal
-        else:
-&gt;           with anyio.start_blocking_portal(**self.async_backend) as portal:
-E           AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
-
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:450: AttributeError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_2" time="0.002"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_2&gt;
-
-    def test_should_failed_unkown_column_2(self):
-        data = {
-            "flights": [
-                {
-                    "OPERA": "Aerolineas Argentinas",
-                    "TIPOVUELO": "O",
-                    "MES": 13
-                }
-            ]
-        }
-        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))# change this line to the model of chosing
-&gt;       response = self.client.post("/predict", json=data)
-
-tests\api\test_api.py:52: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:637: in post
-    return self.request("POST", url, data=data, json=json, **kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:473: in request
-    return super().request(
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:589: in request
-    resp = self.send(prep, **send_kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:703: in send
-    r = adapter.send(request, **kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:267: in send
-    raise exc
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:262: in send
-    with self.portal_factory() as portal:
-..\..\AppData\Local\Programs\Python\Python310\lib\contextlib.py:135: in __enter__
-    return next(self.gen)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-self = &lt;starlette.testclient.TestClient object at 0x00000158DBD438B0&gt;
-
-    @contextlib.contextmanager
-    def _portal_factory(
-        self,
-    ) -&gt; typing.Generator[anyio.abc.BlockingPortal, None, None]:
-        if self.portal is not None:
-            yield self.portal
-        else:
-&gt;           with anyio.start_blocking_portal(**self.async_backend) as portal:
-E           AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
-
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:450: AttributeError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_3" time="0.002"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_failed_unkown_column_3&gt;
-
-    def test_should_failed_unkown_column_3(self):
-        data = {
-            "flights": [
-                {
-                    "OPERA": "Argentinas",
-                    "TIPOVUELO": "O",
-                    "MES": 13
-                }
-            ]
-        }
-        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))
-&gt;       response = self.client.post("/predict", json=data)
-
-tests\api\test_api.py:66: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:637: in post
-    return self.request("POST", url, data=data, json=json, **kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:473: in request
-    return super().request(
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:589: in request
-    resp = self.send(prep, **send_kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:703: in send
-    r = adapter.send(request, **kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:267: in send
-    raise exc
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:262: in send
-    with self.portal_factory() as portal:
-..\..\AppData\Local\Programs\Python\Python310\lib\contextlib.py:135: in __enter__
-    return next(self.gen)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-self = &lt;starlette.testclient.TestClient object at 0x00000158DB416C20&gt;
-
-    @contextlib.contextmanager
-    def _portal_factory(
-        self,
-    ) -&gt; typing.Generator[anyio.abc.BlockingPortal, None, None]:
-        if self.portal is not None:
-            yield self.portal
-        else:
-&gt;           with anyio.start_blocking_portal(**self.async_backend) as portal:
-E           AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
-
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:450: AttributeError</failure></testcase><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_get_predict" time="0.002"><failure message="AttributeError: module 'anyio' has no attribute 'start_blocking_portal'">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_get_predict&gt;
-
-    def test_should_get_predict(self):
-        data = {
-            "flights": [
-                {
-                    "OPERA": "Aerolineas Argentinas",
-                    "TIPOVUELO": "N",
-                    "MES": 3
-                }
-            ]
-        }
-        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0])) # change this line to the model of chosing
-&gt;       response = self.client.post("/predict", json=data)
-
-tests\api\test_api.py:22: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:637: in post
-    return self.request("POST", url, data=data, json=json, **kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:473: in request
-    return super().request(
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:589: in request
-    resp = self.send(prep, **send_kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py:703: in send
-    r = adapter.send(request, **kwargs)
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:267: in send
-    raise exc
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:262: in send
-    with self.portal_factory() as portal:
-..\..\AppData\Local\Programs\Python\Python310\lib\contextlib.py:135: in __enter__
-    return next(self.gen)
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-self = &lt;starlette.testclient.TestClient object at 0x00000158DBCA9690&gt;
-
-    @contextlib.contextmanager
-    def _portal_factory(
-        self,
-    ) -&gt; typing.Generator[anyio.abc.BlockingPortal, None, None]:
-        if self.portal is not None:
-            yield self.portal
-        else:
-&gt;           with anyio.start_blocking_portal(**self.async_backend) as portal:
-E           AttributeError: module 'anyio' has no attribute 'start_blocking_portal'
-
-..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\starlette\testclient.py:450: AttributeError</failure></testcase></testsuite></testsuites>
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="1.900" timestamp="2024-01-31T15:41:34.587191" hostname="DESKTOP-H05ROVE"><testcase classname="" name="tests.model.test_model" time="0.000"><error message="collection failure">..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+&lt;frozen importlib._bootstrap&gt;:1050: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1027: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:1006: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:688: in _load_unlocked
+    ???
+..\..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\_pytest\assertion\rewrite.py:170: in exec_module
+    exec(co, module.__dict__)
+C:\Users\maros\Downloads\challenge_MLE\tests\model\test_model.py:6: in &lt;module&gt;
+    ???
+challenge\model.py:7: in &lt;module&gt;
+    class DelayModel:
+challenge\model.py:63: in DelayModel
+    ) -&gt; Union(Tuple[pd.DataFrame, pd.DataFrame], pd.DataFrame):
+..\..\..\AppData\Local\Programs\Python\Python310\lib\typing.py:387: in __call__
+    raise TypeError(f"Cannot instantiate {self!r}")
+E   TypeError: Cannot instantiate typing.Union</error></testcase></testsuite></testsuites>
