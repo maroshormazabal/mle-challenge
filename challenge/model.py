@@ -1,7 +1,8 @@
 import pandas as pd
 from datetime import datetime
 import xgboost as xgb
-
+import numpy as np
+from sklearn.model_selection import train_test_split
 
 from typing import Tuple, Union, List
 
@@ -35,13 +36,13 @@ class DelayModel:
         night_min = datetime.strptime("00:00", '%H:%M').time()
         night_max = datetime.strptime("4:59", '%H:%M').time()
         
-        if(date_time > morning_min and date_time < morning_max):
+        if morning_min < date_time < morning_max:
             return 'mañana'
-        elif(date_time > afternoon_min and date_time < afternoon_max):
+        elif afternoon_min < date_time < afternoon_max:
             return 'tarde'
-        elif(
-            (date_time > evening_min and date_time < evening_max) or
-            (date_time > night_min and date_time < night_max)
+        elif (
+                (evening_min < date_time < evening_max) or
+                (night_min < date_time < night_max)
         ):
             return 'noche'
             
@@ -72,12 +73,11 @@ class DelayModel:
         return min_diff
 
 
-
     def preprocess(
         self,
         data: pd.DataFrame,
         target_column: str = None
-    ) -> Union(Tuple[pd.DataFrame, pd.DataFrame], pd.DataFrame):
+    ):# -> Union(Tuple[pd.DataFrame, pd.DataFrame], pd.DataFrame):
         """
         Prepare raw data for training or predict.
 
@@ -90,24 +90,37 @@ class DelayModel:
             or
             pd.DataFrame: features.
         """
-        # Aplicar funciones de preprocesamiento
+
+        # Apply preprocessing functions
         data['period_day'] = data['Fecha-I'].apply(self.get_period_day)
         data['high_season'] = data['Fecha-I'].apply(self.is_high_season)
         data['min_diff'] = data.apply(self.get_min_diff, axis=1)
 
-        # Eliminar columnas no necesarias para el modelo
+        # Add the target column ('delay') based on the provided condition
+        threshold_in_minutes = 15
+        data['delay'] = np.where(data['min_diff'] > threshold_in_minutes, 1, 0)
+        
+        # Create dummy variables for certain columns
         features = pd.concat([
-        pd.get_dummies(data['OPERA'], prefix = 'OPERA'),
-        pd.get_dummies(data['TIPOVUELO'], prefix = 'TIPOVUELO'), 
-        pd.get_dummies(data['MES'], prefix = 'MES')], 
-        axis = 1
-        )
+            pd.get_dummies(data['OPERA'], prefix = 'OPERA'),
+            pd.get_dummies(data['TIPOVUELO'], prefix = 'TIPOVUELO'), 
+            pd.get_dummies(data['MES'], prefix = 'MES')], 
+            axis = 1
+            )
+        
+        # Add missing features and select the top 10
+        for feature in self.top_10_features:
+            if feature not in features.columns:
+                features[feature] = 0
+
+        # Select the top 10 features
+        features = features[self.top_10_features]
         
         if target_column:
-            # Si se proporciona el nombre de la columna objetivo
-            return features, data[target_column]
+            target = pd.DataFrame(data['delay'], columns=['delay'])
+            return features, target
         else:
-            # Si no se proporciona la columna objetivo, solo devolver las características
+            self.fit(features, pd.DataFrame(data['delay']))
             return features
 
 
@@ -123,7 +136,18 @@ class DelayModel:
             features (pd.DataFrame): preprocessed data.
             target (pd.DataFrame): target.
         """
-        return
+        # Split the data into training and testing sets
+        x_train, _, y_train, _ = train_test_split(features, target['delay'], test_size = 0.33, random_state = 42)
+
+        # Calculate the scale for handling class imbalance
+        n_y0 = len(y_train[y_train == 0])
+        n_y1 = len(y_train[y_train == 1])
+        scale = n_y0/n_y1
+
+        # Create and train the XGBoost classifier
+        self._model = xgb.XGBClassifier(random_state=1, learning_rate=0.01, scale_pos_weight = scale, enable_categorical=True)
+        self._model.fit(x_train, y_train)
+
 
     def predict(
         self,
@@ -138,4 +162,8 @@ class DelayModel:
         Returns:
             (List[int]): predicted targets.
         """
-        return
+
+        # Predict with the trained model
+        predictions= self._model.predict(features)
+
+        return predictions.tolist()
