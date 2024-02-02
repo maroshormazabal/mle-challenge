@@ -12,10 +12,10 @@ help:             	## Show the help.
 venv:			## Create a virtual environment
 	@echo "Creating virtualenv ..."
 	@rm -rf .venv
-	@python3 -m venv .venv
-	@./.venv/bin/pip install -U pip
+	@python -m venv .venv
+	@./.venv/Scripts/pip install -U pip
 	@echo
-	@echo "Run 'source .venv/bin/activate' to enable the environment"
+	@echo "Run 'source .venv/Scripts/activate' to enable the environment"
 
 .PHONY: install
 install:		## Install dependencies
