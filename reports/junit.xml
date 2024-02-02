@@ -1,21 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="1.900" timestamp="2024-01-31T15:41:34.587191" hostname="DESKTOP-H05ROVE"><testcase classname="" name="tests.model.test_model" time="0.000"><error message="collection failure">..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-&lt;frozen importlib._bootstrap&gt;:1050: in _gcd_import
-    ???
-&lt;frozen importlib._bootstrap&gt;:1027: in _find_and_load
-    ???
-&lt;frozen importlib._bootstrap&gt;:1006: in _find_and_load_unlocked
-    ???
-&lt;frozen importlib._bootstrap&gt;:688: in _load_unlocked
-    ???
-..\..\..\AppData\Local\Programs\Python\Python310\lib\site-packages\_pytest\assertion\rewrite.py:170: in exec_module
-    exec(co, module.__dict__)
-C:\Users\maros\Downloads\challenge_MLE\tests\model\test_model.py:6: in &lt;module&gt;
-    ???
-challenge\model.py:7: in &lt;module&gt;
-    class DelayModel:
-challenge\model.py:63: in DelayModel
-    ) -&gt; Union(Tuple[pd.DataFrame, pd.DataFrame], pd.DataFrame):
-..\..\..\AppData\Local\Programs\Python\Python310\lib\typing.py:387: in __call__
-    raise TypeError(f"Cannot instantiate {self!r}")
-E   TypeError: Cannot instantiate typing.Union</error></testcase></testsuite></testsuites>
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="2.195" timestamp="2024-02-02T09:37:08.373744" hostname="DESKTOP-H05ROVE"><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_1" time="0.020" /><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_2" time="0.005" /><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_failed_unkown_column_3" time="0.005" /><testcase classname="tests.api.test_api.TestBatchPipeline" name="test_should_get_predict" time="0.006"><failure message="AssertionError: 400 != 200">self = &lt;tests.api.test_api.TestBatchPipeline testMethod=test_should_get_predict&gt;
+
+    def test_should_get_predict(self):
+        data = {
+            "flights": [
+                {
+                    "OPERA": "Aerolineas Argentinas",
+                    "TIPOVUELO": "N",
+                    "MES": 3
+                }
+            ]
+        }
+        when(xgb.XGBClassifier).predict(ANY).thenReturn(np.array([0])) # change this line to the model of chosing
+        response = self.client.post("/predict", json=data)
+&gt;       self.assertEqual(response.status_code, 200)
+E       AssertionError: 400 != 200
+
+tests\api\test_api.py:26: AssertionError</failure></testcase></testsuite></testsuites>
