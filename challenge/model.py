@@ -77,7 +77,7 @@ class DelayModel:
         self,
         data: pd.DataFrame,
         target_column: str = None
-    ):# -> Union(Tuple[pd.DataFrame, pd.DataFrame], pd.DataFrame):
+    ) -> Union[Tuple[pd.DataFrame, pd.DataFrame], pd.DataFrame]:
         """
         Prepare raw data for training or predict.
 
@@ -90,7 +90,7 @@ class DelayModel:
             or
             pd.DataFrame: features.
         """
-
+        
         # Apply preprocessing functions
         data['period_day'] = data['Fecha-I'].apply(self.get_period_day)
         data['high_season'] = data['Fecha-I'].apply(self.is_high_season)
