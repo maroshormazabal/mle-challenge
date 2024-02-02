@@ -40,10 +40,7 @@ class DelayModel:
             return 'mañana'
         elif afternoon_min < date_time < afternoon_max:
             return 'tarde'
-        elif (
-                (evening_min < date_time < evening_max) or
-                (night_min < date_time < night_max)
-        ):
+        elif ((evening_min < date_time < evening_max) or (night_min < date_time < night_max)):
             return 'noche'
             
     def is_high_season(self, fecha):
@@ -90,7 +87,7 @@ class DelayModel:
             or
             pd.DataFrame: features.
         """
-        
+
         # Apply preprocessing functions
         data['period_day'] = data['Fecha-I'].apply(self.get_period_day)
         data['high_season'] = data['Fecha-I'].apply(self.is_high_season)
