@@ -19,3 +19,4 @@ I chose XGBoost over Logistic Regression because XGBoost offers enhanced capabil
 From the knowledge gained as a trainee at Latam, the challenge provides a valuable opportunity to apply various topics essential for an MLE. While I didn't complete the entire challenge, opting to prioritize building a model that passes the required tests over deploying the API on GCP, it aligns with Latam's philosophy that emphasizes completing prerequisite tasks before advancing. Nevertheless, the insights gained during the Trainee program were well-suited for the expectations of this challenge.
 
 The area where I perceived the most knowledge gap was in model selection and optimization. As a Trainee, I believe there is a considerable distance in fully understanding the nuances and benefits of the models to be employed.
+
